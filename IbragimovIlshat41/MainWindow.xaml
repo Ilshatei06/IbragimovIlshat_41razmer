@@ -1,0 +1,22 @@
+﻿<Window x:Class="IbragimovIlshat41.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IbragimovIlshat41"
+        mc:Ignorable="d"
+        Title="Ибрагимов Ильшат" Height="450" Width="800" Icon="image\icon.ico" MinHeight="450" MinWidth="800" FontFamily="Comic Sans MS">
+    <!--Background="#FFFFCC99"-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="image/logo.png" HorizontalAlignment="Left"/>
+        <TextBlock Text="41 размер" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <Button Content="Назад" Name="BtnBack" HorizontalAlignment="Right" Click="BtnBack_Click"></Button>
+        <Frame Grid.Row="1" Name="MainFrame" ContentRendered="MainFrame_ContentRendered" NavigationUIVisibility="Hidden"></Frame>
+    </Grid>
+</Window>
