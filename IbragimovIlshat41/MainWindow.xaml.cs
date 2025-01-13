@@ -40,7 +40,6 @@ namespace IbragimovIlshat41
             } 
             else
                 BtnBack.Visibility = Visibility.Hidden;
-
         }
 
         
