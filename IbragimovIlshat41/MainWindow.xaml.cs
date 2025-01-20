@@ -42,6 +42,9 @@ namespace IbragimovIlshat41
                 BtnBack.Visibility = Visibility.Hidden;
         }
 
-        
+        private void BtnAddEdit_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new AddEditPage());
+        }
     }
 }

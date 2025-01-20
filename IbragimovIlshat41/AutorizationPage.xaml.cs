@@ -16,22 +16,23 @@ using System.Windows.Shapes;
 namespace IbragimovIlshat41
 {
     /// <summary>
-    /// Логика взаимодействия для ProductPage.xaml
+    /// Логика взаимодействия для AutorizationPage.xaml
     /// </summary>
-    public partial class ProductPage : Page
+    public partial class AutorizationPage : Page
     {
-        public ProductPage()
+        public AutorizationPage()
         {
             InitializeComponent();
-
-            var currentAgents = IbragimovIlshat41Entities.GetContext().Product.ToList();
-
-            ProductListView.ItemsSource = currentAgents;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnAutorizatioEntrance_Click(object sender, RoutedEventArgs e)
         {
-            Manager.MainFrame.Navigate(new AddEditPage());
+            Manager.MainFrame.Navigate(new ProductPage());
+        }
+
+        private void BtnNoAutorizatioEntrance_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new ProductPage());
         }
     }
 }
