@@ -9,7 +9,38 @@
       Title="ProductPage" FontFamily="Comic Sans MS">
 
     <Grid>
-        <ListView Name="ProductListView" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+            <TextBlock Name="TBCount" FontSize="20" Height="30" Width="100"></TextBlock>
+            <TextBlock Name="TBAllRecords" FontSize="20" Height="30"  Width="100"></TextBlock>
+
+            <StackPanel Margin="20 0 0 0">
+                <TextBlock Text="Поиск по наименованиею" FontSize="15" Height="25"></TextBlock>
+                <TextBox Name="TBoxSearch" FontSize="15" Height="25" Width="250" TextChanged="TBoxSearch_TextChanged"></TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="20 0 0 0">
+                <RadioButton Content="По возрастанию стоимости" GroupName="Sort" Width="250" FontSize="15" Name="RBup" Checked="RBup_Checked"></RadioButton>
+                <RadioButton Content="По убыванию  стоимости" GroupName="Sort" Width="250" FontSize="15" Name="RBdown" Checked="RBdown_Checked"></RadioButton>
+            </StackPanel>
+
+            <StackPanel Margin="20 0 0 0">
+                <TextBlock Text="Фильтрация по скидке" FontSize="15" Height="25"></TextBlock>
+                <ComboBox Name="ComboType" SelectionChanged="ComboType_SelectionChanged" FontSize="15" Width="200">
+                    <TextBlock>Все диапазоны</TextBlock>
+                    <TextBlock>0-9,99%</TextBlock>
+                    <TextBlock>10-14,99</TextBlock>
+                    <TextBlock>15 и более</TextBlock>
+                </ComboBox>
+            </StackPanel>
+
+        </StackPanel>
+        
+        <ListView Name="ProductListView" Grid.Row="1">
             <ListView.ItemTemplate> 
                 <DataTemplate>
                     <Grid>
@@ -25,7 +56,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Image Width="200" Grid.Column="0" Grid.RowSpan="5" Stretch="UniformToFill" HorizontalAlignment="Center">
+                        <Image Width="200" Grid.Column="0" Grid.RowSpan="4" Stretch="UniformToFill" HorizontalAlignment="Center">
                             <Image.Source>
                                 <Binding Path="ProductPhotoPut">
                                     <Binding.TargetNullValue>
