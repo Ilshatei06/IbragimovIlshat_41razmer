@@ -11,14 +11,20 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+        <StackPanel  HorizontalAlignment="Right">
+            <TextBlock Text="Вы аторизованы как" HorizontalAlignment="Left" FontSize="20" Name="FIOTB"></TextBlock>
+            <TextBlock Text="Роль: " HorizontalAlignment="Left" FontSize="20" Name="RoleTB"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10 0 0 0" Grid.Row="1">
             <TextBlock Name="TBCount" FontSize="20" Height="30" Width="100"></TextBlock>
             <TextBlock Name="TBAllRecords" FontSize="20" Height="30"  Width="100"></TextBlock>
 
-            <StackPanel Margin="20 0 0 0">
+            <StackPanel Margin="0 0 0 0">
                 <TextBlock Text="Поиск по наименованиею" FontSize="15" Height="25"></TextBlock>
                 <TextBox Name="TBoxSearch" FontSize="15" Height="25" Width="250" TextChanged="TBoxSearch_TextChanged"></TextBox>
             </StackPanel>
@@ -38,9 +44,12 @@
                 </ComboBox>
             </StackPanel>
 
+
+
         </StackPanel>
         
-        <ListView Name="ProductListView" Grid.Row="1">
+        <ListView Name="ProductListView" Grid.Row="2">
+          
             <ListView.ItemTemplate> 
                 <DataTemplate>
                     <Grid>

@@ -23,7 +23,7 @@ namespace IbragimovIlshat41
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new ProductPage());
+            MainFrame.Navigate(new AutorizationPage());
             Manager.MainFrame = MainFrame;
         }
 
@@ -42,9 +42,9 @@ namespace IbragimovIlshat41
                 BtnBack.Visibility = Visibility.Hidden;
         }
 
-        private void BtnAddEdit_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new AddEditPage());
-        }
+        //private void BtnAddEdit_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MainFrame.Navigate(new AddEditPage());
+        //}
     }
 }

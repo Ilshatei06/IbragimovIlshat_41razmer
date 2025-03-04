@@ -21,10 +21,29 @@ namespace IbragimovIlshat41
     public partial class ProductPage : Page
     {
         List<Product> Tablelist;
-        int RecordsCount;
-        public ProductPage()
+        public ProductPage(User user)
         {
             InitializeComponent();
+
+            if (user == null)
+            {
+                FIOTB.Text = "Вы не аторизованы";
+                RoleTB.Text = "Роль: Гость";
+            }
+            else
+            {
+                FIOTB.Text = "Вы аторизованы как " + user.UserSurname + " " + user.UserName + " " + user.UserPatronymic;
+                switch (user.UserRole)
+                {
+                    case 1:
+                        RoleTB.Text = "Роль: Клиент"; break;
+                    case 2:
+                        RoleTB.Text = "Роль: Менеджер"; break;
+                    case 3:
+                        RoleTB.Text = "Роль: Администратор"; break;
+                }
+            }
+
 
             var currentAgents = IbragimovIlshat41Entities.GetContext().Product.ToList();
             Tablelist = IbragimovIlshat41Entities.GetContext().Product.ToList();
@@ -34,11 +53,6 @@ namespace IbragimovIlshat41
             ComboType.SelectedIndex = 0;
 
             UpdateProducts();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new AddEditPage());
         }
 
         private void UpdateProducts()
@@ -97,5 +111,7 @@ namespace IbragimovIlshat41
         {
             UpdateProducts();
         }
+
+       
     }
 }

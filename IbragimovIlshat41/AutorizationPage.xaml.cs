@@ -20,19 +20,79 @@ namespace IbragimovIlshat41
     /// </summary>
     public partial class AutorizationPage : Page
     {
+        int countEror = 0;
         public AutorizationPage()
         {
             InitializeComponent();
+
+            TBoxCapcha.Visibility = Visibility.Hidden;
+            
         }
 
-        private void BtnAutorizatioEntrance_Click(object sender, RoutedEventArgs e)
+        private async void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            Manager.MainFrame.Navigate(new ProductPage());
-        }
+            string login = TBoxLogin.Text;
+            string password = TBoxPassword.Text;
 
-        private void BtnNoAutorizatioEntrance_Click(object sender, RoutedEventArgs e)
+            if (login == "" || password == "")
+            {
+                MessageBox.Show("Есть пустые поля!");
+                return;
+            }
+
+            User user = IbragimovIlshat41Entities.GetContext().User.ToList().Find(p => p.UserLogin == login && p.UserPassword == password);
+            if (user != null)
+            {
+                Manager.MainFrame.Navigate(new ProductPage(user));
+                TBoxLogin.Text = "";
+                TBoxPassword.Text = "";
+                capchaOneWord.Text = "";
+                capchaTwoWord.Text = "";
+                capchaThreeWord.Text = "";
+                capchaFourWord.Text = "";
+                TBoxCapcha.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                countEror++;
+                MessageBox.Show("Введены неверные данные!");
+
+                Random rnd = new Random();
+                string symb = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
+                capchaOneWord.Text = symb[rnd.Next(symb.Length)].ToString();
+                capchaTwoWord.Text = symb[rnd.Next(symb.Length)].ToString();
+                capchaThreeWord.Text = symb[rnd.Next(symb.Length)].ToString();
+                capchaFourWord.Text = symb[rnd.Next(symb.Length)].ToString();
+                TBoxCapcha.Visibility = Visibility.Visible;
+
+                if (countEror >= 2)
+                {
+                    TBoxCapcha.Text = "";
+                    LoginBtn.IsEnabled = false;
+                    await Task.Delay(10000);
+                    LoginBtn.IsEnabled = true;
+                }
+            }
+
+            
+
+        }
+        
+
+        private void NoLoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            Manager.MainFrame.Navigate(new ProductPage());
+            User user = null;
+            Manager.MainFrame.Navigate(new ProductPage(user));
+
+            TBoxLogin.Text = "";
+            TBoxPassword.Text = "";
+            capchaOneWord.Text = "";
+            capchaTwoWord.Text = "";
+            capchaThreeWord.Text = "";
+            capchaFourWord.Text = "";
+            TBoxCapcha.Visibility = Visibility.Hidden;
         }
     }
 }
+
+//РАСПОЛОЖЕНИЕ ИНФЫ НА ПРОДУКТ ПЕЙДЖ
