@@ -21,9 +21,19 @@ namespace IbragimovIlshat41
     public partial class ProductPage : Page
     {
         List<Product> Tablelist;
+        List<Product> selectedProducts = new List<Product>();
+        private Order currentOrder = new Order();
+        List<OrderProduct> selectedOrderProducts = new List<OrderProduct>();
+
+
+        int newOrderId;
         public ProductPage(User user)
         {
             InitializeComponent();
+            if (selectedProducts.Count == 0)
+            {
+                OrderBtn.Visibility = Visibility.Hidden;
+            }
 
             if (user == null)
             {
@@ -112,6 +122,54 @@ namespace IbragimovIlshat41
             UpdateProducts();
         }
 
-       
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            if (ProductListView.SelectedIndex >= 0)
+            {
+                var prod = ProductListView.SelectedItem as Product;
+                selectedProducts.Add(prod);
+
+                //int newOrderID = selectedOrderProducts.Last().Order.OrderID;
+                var newOrderProd = new OrderProduct();//новый заказ
+
+                //номер продукта в новую запись
+                newOrderProd.ProductArticleNumber = prod.ProductArticleNumber;
+                newOrderProd.ProductCount = 1;
+
+                //проверии есть ли уже такой заказ
+                var selOP = selectedOrderProducts.Where(p => Equals(p.ProductArticleNumber, prod.ProductArticleNumber));
+                //MessageBox.Show(selOP.Count().ToString());
+                if (selOP.Count() == 0)
+                {
+                    //MessageBox.Show(newOrderProd. OrderID.ToString() + " " + newOrderProd.ProductArticleNumber.ToString() + " " + newOrderProd.Quantity.ToString());
+                    selectedOrderProducts.Add(newOrderProd);
+                    //MessageBox.Shom("колво в selecteOP = " + selectedOrderProducts.Count().ToString());
+                }
+                else
+                {
+                    foreach (OrderProduct p in selectedOrderProducts)
+                        if (p.ProductArticleNumber == prod.ProductArticleNumber)
+                            p.ProductCount++;
+                    //MessageBox.Show("колво = " + p.Quantity.ToString());
+                }
+
+                OrderBtn.Visibility = Visibility.Visible;
+                ProductListView.SelectedIndex = -1;
+
+                UpdateProducts();
+            }
+
+        }
+
+        private void BtnOrder_Click(object sender, RoutedEventArgs e)
+        {
+            OrderWindow OrdWind = new OrderWindow(selectedOrderProducts, selectedProducts, FIOTB.Text);
+            OrdWind.ShowDialog();
+            UpdateProducts();
+        }
     }
 }
+
+

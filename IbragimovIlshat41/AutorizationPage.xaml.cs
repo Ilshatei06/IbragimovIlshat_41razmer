@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IbragimovIlshat41;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace IbragimovIlshat41
     public partial class AutorizationPage : Page
     {
         int countEror = 0;
+        string capcha;
         public AutorizationPage()
         {
             InitializeComponent();
@@ -38,6 +40,28 @@ namespace IbragimovIlshat41
             {
                 MessageBox.Show("Есть пустые поля!");
                 return;
+            }
+
+            if (countEror > 0)
+            {
+                if (string.IsNullOrEmpty(TBoxCapcha.Text))
+                {
+                    MessageBox.Show("Введите капчу!");
+                    return;
+                }
+
+                if (TBoxCapcha.Text != capcha)
+                {
+                    countEror++;
+                    MessageBox.Show("Капча введена неверно!");
+                    TBoxCapcha.Text = "";
+                    LoginBtn.IsEnabled = false;
+                    await Task.Delay(10000);
+                    LoginBtn.IsEnabled = true;
+                    return;
+                }
+
+
             }
 
             User user = IbragimovIlshat41Entities.GetContext().User.ToList().Find(p => p.UserLogin == login && p.UserPassword == password);
@@ -63,6 +87,7 @@ namespace IbragimovIlshat41
                 capchaTwoWord.Text = symb[rnd.Next(symb.Length)].ToString();
                 capchaThreeWord.Text = symb[rnd.Next(symb.Length)].ToString();
                 capchaFourWord.Text = symb[rnd.Next(symb.Length)].ToString();
+                capcha = capchaOneWord.Text + capchaTwoWord.Text + capchaThreeWord.Text + capchaFourWord.Text;
                 TBoxCapcha.Visibility = Visibility.Visible;
 
                 if (countEror >= 2)
@@ -91,8 +116,7 @@ namespace IbragimovIlshat41
             capchaThreeWord.Text = "";
             capchaFourWord.Text = "";
             TBoxCapcha.Visibility = Visibility.Hidden;
+            countEror = 0;
         }
     }
 }
-
-//РАСПОЛОЖЕНИЕ ИНФЫ НА ПРОДУКТ ПЕЙДЖ

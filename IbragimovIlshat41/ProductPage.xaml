@@ -20,6 +20,9 @@
             <TextBlock Text="Роль: " HorizontalAlignment="Left" FontSize="20" Name="RoleTB"></TextBlock>
         </StackPanel>
 
+        <Button Content="Заказ" HorizontalAlignment="Left" Name="OrderBtn" Click="BtnOrder_Click"  ></Button>
+
+
         <StackPanel Orientation="Horizontal" Margin="10 0 0 0" Grid.Row="1">
             <TextBlock Name="TBCount" FontSize="20" Height="30" Width="100"></TextBlock>
             <TextBlock Name="TBAllRecords" FontSize="20" Height="30"  Width="100"></TextBlock>
@@ -49,7 +52,11 @@
         </StackPanel>
         
         <ListView Name="ProductListView" Grid.Row="2">
-          
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить к заказу" Click="MenuItem_Click"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.ItemTemplate> 
                 <DataTemplate>
                     <Grid>
@@ -89,8 +96,6 @@
                             <TextBlock Text="{Binding ProductCost, StringFormat={}{0:0} }"   FontSize="20"></TextBlock>
                             <TextBlock Text=" рублей" FontSize="20"></TextBlock>
                         </StackPanel>
-
-
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
